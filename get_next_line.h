@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:20:18 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/10 19:11:18 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:56:07 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@
 #  define BUFFER_SIZE 1
 # endif
 
+# define MAX_FD 1024
+
 # include <unistd.h>
 # include <stdlib.h>
+
+// borrar
+# include <stdio.h>
 
 // get_next_line
 char	*get_next_line(int fd);

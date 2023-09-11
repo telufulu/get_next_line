@@ -6,79 +6,72 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/10 20:12:35 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:56:05 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static size_t	len_line(char *res)
+static size_t	get_buffer(int fd, char **store)
 {
-	size_t	i;
-
-	i = 0;
-	while (res && res[i] != '\n' && res[i] != '\0')
-		i++;
-	if (res[i] == '\n')
-		i++;
-	return (i);
-}
-
-static char	*add_buffer(char *store, char *buffer)
-{
-	char		*aux;
-
-	aux = ft_strjoin(store, buffer);
-	if (!aux)
-		return (NULL);
-	free(store);
-	return (aux);
-}
-
-static char	*next_line(char **store)
-{
-	char	*res;
-	size_t		len;
+	char	buffer[BUFFER_SIZE + 1];
 	char	*aux;
+	size_t	rd;
+
+	buffer[BUFFER_SIZE] = '\0';
+	rd = 0;
+	while (!ft_strchr(buffer, '\n') || !ft_strchr(buffer, '\0'))
+	{
+		rd = read(fd, buffer, BUFFER_SIZE);
+		if (rd <= 0 || rd > MAX_FD)
+			return (0);
+		if (store)
+			aux = (*store);
+		(*store) = ft_strjoin((*store), buffer);
+		if (aux)
+			free(aux);
+	}
+	return (rd);
+}
+
+static size_t	get_line(char *store, char **res)
+{
+	size_t	len;
 	size_t	i;
 
-	len = len_line((*store));
-	res = ft_calloc(sizeof(char), len + 1);
-	if (!res)
-		return (NULL);
+	len = 0;
 	i = 0;
-	aux = (*store);
-	while (i <= len)
-		res[i++] = *(*store)++;
-	free(aux);
-	return (res);
+	while (store[len] != '\0' && store[len] != '\n')
+		len++;
+	if (store[len] == '\n')
+		len++;
+	(*res) = ft_calloc(sizeof(char), len + 1);
+	if (!(*res))
+		return (0);
+	while (i < len)
+		(*res)[i++] = *store++;
+	return (len);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*store;
 	char		*res;
-	char		buffer[BUFFER_SIZE + 1];
-	int			flag;
+	char		*aux;
+	size_t		len;
+	size_t		rd;
 
 	res = NULL;
-	buffer[BUFFER_SIZE] = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > MAX_FD)
 		return (NULL);
-	while (!store || !ft_strchr(store, '\0') || !ft_strchr(store, '\n'))
-	{
-		flag = read(fd, buffer, BUFFER_SIZE);
-		if (flag <= 0)
-		{
-			if (store)
-				free(store);
-			return (NULL);
-		}
-		store = add_buffer(store, buffer);
-		if (!store)
-			return (NULL);
-	}
-	if (store && (ft_strchr(store, '\n') || ft_strchr(store, '\0')))
-		res = next_line(&store);
+	rd = get_buffer(fd, &store);
+	if (!rd || (!rd && (!ft_strchr(store, '\n') || !ft_strchr(store, '\0'))))
+		return (NULL);
+	len = get_line(store, &res);
+	if (!res)
+		return (NULL);
+	aux = store;
+	store = ft_strdup(store + len);
+	free(aux);
 	return (res);
 }
