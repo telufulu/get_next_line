@@ -2,6 +2,5 @@
 objs
 *.o
 *.swp
-.test
 a.out
 *.gch
