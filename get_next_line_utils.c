@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:56:55 by telufulu          #+#    #+#             */
-/*   Updated: 2023/08/27 19:10:11 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:01:34 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,74 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	if (!s)
+		return (0);
+	while (s && s[i] != '\0')
 		i++;
 	return (i);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	char	*aux;
+	size_t	len;
+
+	len = count * size;
+	aux = malloc(len);
+	if (!aux)
+		return (0);
+	while (len--)
+		aux[len] = 0;
+	return (aux);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*res;
+	int		i;
+
+	i = 0;
+	res = ft_calloc(sizeof(char), (ft_strlen(s1) + 1));
+	if (!res)
+		return (0);
+	while (*s1 != '\0')
+		res[i++] = (char)*s1++;
+	return (res);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*aux;
+
+	aux = (char *)s;
+	while (*aux != '\0')
+	{
+		if (*aux == (char)c)
+			return (aux);
+		aux++;
+	}
+	if (*aux == (char)c)
+		return (aux);
+	return (0);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
-	size_t	res_len;
+	size_t	i;
+	size_t	x;
 
-	if (s1)
-		res_len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	else
-		res_len = ft_strlen(s2);
-	write(1, "Entra\n", 6);
-	res = calloc(sizeof(char), res_len);
+	i = 0;
+	x = 0;
+	res = ft_calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!res)
 		return (NULL);
-	strlcpy(res, s1, ft_strlen(s1) + 1);
-	strlcat(res, s2, res_len);
+	while (s1 && s1[i])
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	while (s2 && s2[x])
+		res[i++] = s2[x++]; 
 	return (res);
 }
