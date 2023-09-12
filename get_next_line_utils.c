@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:56:55 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/11 20:56:03 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/13 00:52:07 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	if (!s)
-		return (0);
 	while (s && s[i] != '\0')
 		i++;
 	return (i);
@@ -44,7 +42,7 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
-	res = ft_calloc(sizeof(char), (ft_strlen(s1) + 1));
+	res = (char *)ft_calloc(sizeof(char), (ft_strlen(s1) + 1));
 	if (!res)
 		return (0);
 	while (*s1 != '\0')
@@ -76,7 +74,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	x = 0;
-	res = ft_calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
+	res = (char *)ft_calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!res)
 		return (NULL);
 	while (s1 && s1[i])

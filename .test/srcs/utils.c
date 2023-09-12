@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:33:53 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/12 18:25:06 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/13 00:14:05 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	init_store(t_store *store)
 	store[1] = (t_store){"files/42_no_nl", "012345678901234567890123456789012345678901"};
 	store[2] = (t_store){"files/41", "01234567890123456789012345678901234567890\n"};
 	store[3] = (t_store){"files/42", "012345678901234567890123456789012345678901\n"};
+	store[4] = (t_store){"files/hola", "Hola\nEsto es una prueba\nEsta es la segunda línea\n\nY esta la quinta\n"};
 }

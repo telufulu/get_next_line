@@ -4,3 +4,5 @@ objs
 *.swp
 a.out
 *.gch
+GNLtester
+GNLtester.dSYM
