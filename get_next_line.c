@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/11 20:56:05 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:25:00 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static size_t	get_buffer(int fd, char **store)
 	while (!ft_strchr(buffer, '\n') || !ft_strchr(buffer, '\0'))
 	{
 		rd = read(fd, buffer, BUFFER_SIZE);
+		printf(
 		if (rd <= 0 || rd > MAX_FD)
 			return (0);
 		if (store)
@@ -65,8 +66,6 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd > MAX_FD)
 		return (NULL);
 	rd = get_buffer(fd, &store);
-	if (!rd || (!rd && (!ft_strchr(store, '\n') || !ft_strchr(store, '\0'))))
-		return (NULL);
 	len = get_line(store, &res);
 	if (!res)
 		return (NULL);

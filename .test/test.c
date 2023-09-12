@@ -6,34 +6,48 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:20:05 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/11 20:55:27 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:25:04 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../get_next_line.h"
-//#include "get_next_line/get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
+#include "test.h"
 
 int	main(void)
 {
 	int		fd;
+	int		x;
+	t_store	test[NB_OF_TEST];
 	char	*res;
-	size_t	i;
-	size_t	lines;
+	char	*aux;
+	char	*aux2;
 
-	i = 0;
-	lines = 40;
-	fd = open("files/empty", O_RDONLY);
-	//fd = open(".test/one_line.txt", O_RDONLY);
-	//fd = 0;
-	printf("fd: %i\n", fd);
-	while (i < lines)
+	x = 0;
+	res = 0;
+	aux = 0;
+	aux2 = 0;
+	init_store(test);
+	while (x < NB_OF_TEST)
 	{
+		fd = open(test[x].path, O_RDONLY);
 		res = get_next_line(fd);
-		printf("%s", res);
+		while (res && res[strlen(res)] != '\0')
+		{
+			aux = res;
+			aux2 = get_next_line(fd);
+			res = strjoin(res, aux2);
+			free(aux);
+			free(aux2);
+		}
+		if (*res && !strcmp(res, test[x].expected))
+			printf("test %i: \x1b[32mOK\x1b[0m\n", x);
+		else
+		{
+			printf("test %i: \x1b[31mKO\x1b[0m\n", x);
+			printf("%s", res);
+		}
+		close(fd);
 		free(res);
-		i++;
+		x++;
 	}
 	return (0);
 }
