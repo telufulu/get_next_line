@@ -3,14 +3,15 @@
 
 int	main()
 {
-	int	fd = open(".test/files/hola", O_RDONLY);
+	int	fd = open(".test/files/empty", O_RDONLY);
 	int	i = 0;
 	char	*res;
 
 	res = 0;
-	while (i < 5)
+	while (i < 1)
 	{
 		res = get_next_line(fd);
+		printf("fd: %d\n", fd);
 		printf("%s", res);
 		free(res);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/13 00:53:27 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:17:56 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ static size_t	get_buffer(int fd, char **store)
 	size_t	rd;
 
 	rd = 0;
-	buffer[BUFFER_SIZE] = '\0';
-	while (!ft_strchr(buffer, '\n') || !ft_strchr(buffer, '\0'))
+	while (rd <= BUFFER_SIZE)
+		buffer[rd++] = '\0';
+	rd = 0;
+	while (!ft_strchr(buffer, '\n'))
 	{
 		rd = read(fd, buffer, BUFFER_SIZE);
-		if (rd <= 0 || rd > MAX_FD)
+		if (rd <= 0)
 			return (-1);
 		buffer[rd] = '\0';
-		if (store)
-			aux = (*store);
+		aux = (*store);
 		(*store) = ft_strjoin((*store), buffer);
-		if (aux)
-			free(aux);
+		free(aux);
 	}
 	return (rd);
 }
@@ -60,13 +60,12 @@ char	*get_next_line(int fd)
 	char		*res;
 	char		*aux;
 	size_t		len;
-	size_t		rd;
 
-	res = NULL;
-	if (fd < 0 || fd > MAX_FD)
+	if (!store)
+		store = ft_calloc(1, 1);
+	if (fd < 0 || fd > MAX_FD || read(fd, 0, 0) < 0 || !store)
 		return (NULL);
-	rd = get_buffer(fd, &store);
-	if (rd < 0)
+	if (get_buffer(fd, &store) < 0)
 		return (free(store), NULL);
 	len = get_line(store, &res);
 	if (!len)
@@ -74,7 +73,7 @@ char	*get_next_line(int fd)
 	aux = store;
 	store = ft_strdup(store + len);
 	if (!store)
-		return (free(store), NULL);
+		return (NULL);
 	free(aux);
 	return (res);
 }

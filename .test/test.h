@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:15:11 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/13 00:14:13 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:17:59 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define NB_OF_TEST 5
+# define NB_OF_TEST 8
 
 typedef struct	s_store
 {
