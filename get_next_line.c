@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/16 14:17:56 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/18 01:11:22 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ char	*get_next_line(int fd)
 	char		*aux;
 	size_t		len;
 
+	if (fd < 0 || fd > MAX_FD || read(fd, 0, 0) < 0)
+		return (free(store), NULL);
 	if (!store)
 		store = ft_calloc(1, 1);
-	if (fd < 0 || fd > MAX_FD || read(fd, 0, 0) < 0 || !store)
+	if (!store)
 		return (NULL);
 	if (get_buffer(fd, &store) < 0)
 		return (free(store), NULL);
@@ -72,8 +74,8 @@ char	*get_next_line(int fd)
 		return (free(res), NULL);
 	aux = store;
 	store = ft_strdup(store + len);
+	free(aux);
 	if (!store)
 		return (NULL);
-	free(aux);
 	return (res);
 }

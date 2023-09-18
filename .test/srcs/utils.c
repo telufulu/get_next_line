@@ -6,11 +6,11 @@
 /*   By: telufulu <telufulu@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:33:53 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/16 14:18:19 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/18 00:59:36 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../test.h"
+#include "test.h"
 
 char	*strjoin(char const *s1, char const *s2)
 {

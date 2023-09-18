@@ -2,8 +2,8 @@ NAME		=	GNLtester
 CC			=	cc
 CFLAGSX		=	-Wall -Werror -Wextra -fsanitize=address -g3 -I $(INC)
 CFLAGS		=	-Wall -Werror -Wextra -I $(INC)
-INC			=	test.h
-MAIN		=	test.c
+INC			=	inc/
+MAIN		=	srcs/test.c
 SRCS		=	srcs/utils.c ../get_next_line.c ../get_next_line_utils.c
 
 all:	$(NAME)
