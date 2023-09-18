@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/18 01:11:22 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:51:31 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_next_line(int fd)
 		return (free(store), NULL);
 	len = get_line(store, &res);
 	if (!len)
-		return (free(res), NULL);
+		return (free(store), free(res), NULL);
 	aux = store;
 	store = ft_strdup(store + len);
 	free(aux);
