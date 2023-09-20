@@ -8,13 +8,14 @@ int	main()
 	char	*res;
 
 	res = 0;
+	printf("fd: %d\n", fd);
 	while (i < 1)
 	{
 		res = get_next_line(fd);
-		printf("fd: %d\n", fd);
 		printf("%s", res);
 		free(res);
 		i++;
 	}
+	close(fd);
 	return (0);
 }
