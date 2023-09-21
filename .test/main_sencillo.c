@@ -3,7 +3,7 @@
 
 int	main()
 {
-	int	fd = open(".test/files/empty", O_RDONLY);
+	int	fd = open(".test/files/read_error", O_RDONLY);
 	int	i = 0;
 	char	*res;
 
