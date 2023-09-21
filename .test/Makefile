@@ -13,23 +13,23 @@ $(NAME):
 	echo '**********************'
 	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=1 -o $(NAME)
 	./$(NAME)
-	echo 'BUFFER_SIZE = 2'
+	echo 'BUFFER_SIZE = 42'
 	echo '**********************'
-	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=2 -o $(NAME)
+	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=42 -o $(NAME)
 	./$(NAME)
 	echo 'BUFFER_SIZE = 10000'
 	echo '**********************'
 	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=10000 -o $(NAME)
 	./$(NAME)
 
-extra:
+extra:	fclean
 	echo 'BUFFER_SIZE = 1'
 	echo '**********************'
 	$(CC) $(CFLAGSX) $(MAIN) $(SRCS) -D BUFFER_SIZE=1 -o $(NAME)
 	./$(NAME)
-	echo 'BUFFER_SIZE = 2'
+	echo 'BUFFER_SIZE = 42'
 	echo '**********************'
-	$(CC) $(CFLAGSX) $(MAIN) $(SRCS) -D BUFFER_SIZE=2 -o $(NAME)
+	$(CC) $(CFLAGSX) $(MAIN) $(SRCS) -D BUFFER_SIZE=42 -o $(NAME)
 	./$(NAME)
 	echo 'BUFFER_SIZE = 10000'
 	echo '**********************'

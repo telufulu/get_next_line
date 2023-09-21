@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/21 21:12:03 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/22 01:30:40 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static size_t	get_buffer(int fd, char **store)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	char	*aux;
-	size_t	rd;
+	int		rd;
 
 	rd = 0;
 	aux = 0;
@@ -25,15 +25,15 @@ static size_t	get_buffer(int fd, char **store)
 	rd = 0;
 	while (!ft_strchr(buffer, '\n'))
 	{
-		rd = read(fd, buffer, BUFFER_SIZE);
-		if (rd <= 0 || !*buffer)
+		rd = read(fd, buffer, BUFFER_SIZE);	
+		if (rd < 0)
+			return (1);
+		if (!rd || !*buffer)
 			return (0);
 		buffer[rd] = '\0';
-		if ((*store))
-			aux = (*store);
+		aux = (*store);
 		(*store) = ft_strjoin((*store), buffer);
-		if (aux)
-			free(aux);
+		free(aux);
 		if (!(*store))
 			return (1);
 	}
@@ -70,17 +70,20 @@ char	*get_next_line(int fd)
 	char		*aux;
 	size_t		len;
 
+	res = 0;
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > MAX_FD || read(fd, 0, 0) < 0)
 		return (free(store), NULL);
 	if (get_buffer(fd, &store))
-		return (NULL);
-	len = get_line(store, &res);
-	if (!len)
 		return (free(store), NULL);
-	aux = store;
-	store = ft_strdup(store + len);
-	free(aux);
-	if (!store)
-		return (free(res), NULL);
-	return (res);
+	len = get_line(store, &res);
+	if (!len || !res)
+		return (free(store), NULL);
+	if (res && store)
+	{
+		aux = store;
+		store = ft_strdup(store + len);
+		free(aux);
+		return (res);
+	}
+	return (NULL);
 }

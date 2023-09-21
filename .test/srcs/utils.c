@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:33:53 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/21 18:20:00 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:12:56 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	init_store(t_store *store)
 	store[6] = (t_store){"files/one_char", "X\n"};
 	store[7] = (t_store){"files/empty", NULL};
 	store[8] = (t_store){"files/only_nl", "\n"};
+	store[9] = (t_store){"files/abcd", "aaaaaaaaaa\nbbbbbbbbbb\ncccccccccc\ndddddddddd\n"};
 }
