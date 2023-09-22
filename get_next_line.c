@@ -3,57 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telufulu <telufulu@student.42madrid>       +#+  +:+       +#+        */
+/*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 11:51:24 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/22 16:25:29 by telufulu         ###   ########.fr       */
+/*   Created: 2023/08/27 18:21:39 by telufulu          #+#    #+#             */
+/*   Updated: 2023/09/22 01:30:40 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*get_buffer(int fd)
+static size_t	get_buffer(int fd, char **store)
 {
-	char	*buffer;
-	ssize_t	rd;
-	char	*res;
+	char	buffer[BUFFER_SIZE + 1];
 	char	*aux;
+	int		rd;
 
-	buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	rd = read(fd, buffer, BUFFER_SIZE);
-	res = ft_strjoin(res, buffer);
-	while (rd && res && !ft_strchr(res, '\n'))
+	rd = 0;
+	aux = 0;
+	while (rd <= BUFFER_SIZE)
+		buffer[rd++] = '\0';
+	rd = 0;
+	while (!ft_strchr(buffer, '\n'))
 	{
-		rd = read(fd, buffer, BUFFER_SIZE);
+		rd = read(fd, buffer, BUFFER_SIZE);	
 		if (rd < 0)
-			return (free(buffer), free(res), NULL);
-		aux = res;
-		res = ft_strjoin(res, buffer);
+			return (1);
+		if (!rd || !*buffer)
+			return (0);
+		buffer[rd] = '\0';
+		aux = (*store);
+		(*store) = ft_strjoin((*store), buffer);
 		free(aux);
+		if (!(*store))
+			return (1);
 	}
-	return (free(buffer), res);
+	return (0);
 }
 
-static char	*get_line(char **res, char *store)
+static size_t	get_line(char *store, char **res)
 {
+	size_t	len;
 	size_t	i;
 
+	len = 0;
 	i = 0;
-	while (store[i] != '\n' && store[i])
-		i++;
-	if (store[i] == '\n')
-		i++;
-	(*res) = ft_calloc(sizeof(char), i);
+	if (!store)
+		return (0);
+	while (store && store[len] && store[len] != '\0' && store[len] != '\n')
+		len++;
+	if (store[len] == '\n')
+		len++;
+	if (!len)
+		return (0);
+	(*res) = (char *)ft_calloc(sizeof(char), len + 1);
 	if (!(*res))
-		return (NULL);
-	i = 0;
-	while (*store != '\n' && *store)
+		return (0);
+	while (i < len)
 		(*res)[i++] = *store++;
-	if ((*res)[i] == '\n')
-		(*res)[i] = *store++;
-	return (ft_strdup(store));
+	return (len);
 }
 
 char	*get_next_line(int fd)
@@ -61,24 +68,22 @@ char	*get_next_line(int fd)
 	static char	*store;
 	char		*res;
 	char		*aux;
+	size_t		len;
 
 	res = 0;
-	
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > MAX_FD || read(fd, 0, 0) < 0)
 		return (free(store), NULL);
-	if (!ft_strchr(store, '\n'))
+	if (get_buffer(fd, &store))
+		return (free(store), NULL);
+	len = get_line(store, &res);
+	if (!len || !res)
+		return (free(store), NULL);
+	if (res && store)
 	{
-		printf("Sale\n");
-		aux = get_buffer(fd);
-		store = ft_strjoin(store, aux);
+		aux = store;
+		store = ft_strdup(store + len);
 		free(aux);
-	}
-	if (!store)
-		return (NULL);
-	aux = store;
-	store = get_line(&res, store);
-	free(aux);
-	if (res)
 		return (res);
-	return (free(store), NULL);
+	}
+	return (NULL);
 }
