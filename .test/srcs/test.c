@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:20:05 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/22 00:04:07 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:53:13 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(void)
 			free(aux2);
 			aux = res;
 		}
-		if ((!test[x].expected && !res) || (res && *res && !strcmp(res, test[x].expected)))
+		if ((test[x].expected == res) || (res && *res && !strcmp(res, test[x].expected)))
 			printf("test %i: \x1b[32mOK\x1b[0m\n", x);
 		else
 			printf("%stest %i: \x1b[31mKO\x1b[0m\n", res, x);

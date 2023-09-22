@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:33:53 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/21 21:12:56 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:43:29 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	x = 0;
-	res = ft_calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
+	res = calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!res)
 		return (NULL);
 	while (s1 && s1[i])

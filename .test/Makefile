@@ -5,6 +5,7 @@ CFLAGS		=	-Wall -Werror -Wextra -I $(INC)
 INC			=	inc/
 MAIN		=	srcs/test.c
 SRCS		=	srcs/utils.c ../get_next_line.c ../get_next_line_utils.c
+#SRCS		=	srcs/utils.c COPIA/get_next_line.c COPIA/get_next_line_utils.c
 
 all:	$(NAME)
 
