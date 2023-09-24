@@ -14,9 +14,9 @@ $(NAME):
 	echo '**********************'
 	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=1 -o $(NAME)
 	./$(NAME)
-	echo 'BUFFER_SIZE = 42'
+	echo 'BUFFER_SIZE = 10'
 	echo '**********************'
-	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=42 -o $(NAME)
+	$(CC) $(CFLAGS) $(MAIN) $(SRCS) -D BUFFER_SIZE=10 -o $(NAME)
 	./$(NAME)
 	echo 'BUFFER_SIZE = 10000'
 	echo '**********************'

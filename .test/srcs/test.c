@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:20:05 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/22 15:53:13 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:13:06 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ int	main(void)
 	init_store(test);
 	while (x < NB_OF_TEST)
 	{
-		aux2 = "";
 		fd = open(test[x].path, O_RDONLY);
 		res = get_next_line(fd);
-		while (aux2)
+		while (res)
 		{
-			aux = res;
-			aux2 = get_next_line(fd);
-			res = strjoin(res, aux2);
+			aux = get_next_line(fd);
+			if (!aux)
+				break;
+			aux2 = res;
+			res = strjoin(res, aux);
 			free(aux);
+			aux = 0;
 			free(aux2);
-			aux = res;
+			aux2 = 0;
 		}
 		if ((test[x].expected == res) || (res && *res && !strcmp(res, test[x].expected)))
 			printf("test %i: \x1b[32mOK\x1b[0m\n", x);

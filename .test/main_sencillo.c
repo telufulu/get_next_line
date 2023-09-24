@@ -1,21 +1,27 @@
 #include "../get_next_line.h"
 #include <fcntl.h>
 
+void	hola(void)
+{
+	system("leaks a.out");
+}
+
 int	main()
 {
-	int	fd = open("../files/41", O_RDONLY);
+	int	fd1 = open(".test/files/42", O_RDONLY);
 	int	i = 0;
 	char	*res;
 
+	atexit(&hola);
 	res = 0;
-	printf("fd: %d\n", fd);
 	while (i < 1)
 	{
-		res = get_next_line(fd);
-		printf("%s", res);
+		printf("fd1: %d\n", fd1);
+		res = get_next_line(fd1);
+		printf("res: %s", res);
 		free(res);
 		i++;
 	}
-	close(fd);
+	close(fd1);
 	return (0);
 }

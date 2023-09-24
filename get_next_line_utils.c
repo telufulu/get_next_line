@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:56:55 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/21 14:48:04 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/23 14:35:55 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,22 @@ char	*ft_strdup(const char *s1)
 	while (*s1 != '\0')
 		res[i++] = (char)*s1++;
 	return (res);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	int	i;
+
+	i = 0;
+	while (dstsize > 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+		dstsize--;
+	}
+	if (dstsize > 0)
+		dst[i] = '\0';
+	return (ft_strlen(src));
 }
 
 char	*ft_strchr(const char *s, int c)
