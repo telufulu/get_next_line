@@ -6,11 +6,11 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:56:55 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/25 17:09:39 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:11:06 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

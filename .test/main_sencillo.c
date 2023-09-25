@@ -20,6 +20,8 @@ int	main()
 		res = get_next_line(fd1);
 		printf("res: %s", res);
 		free(res);
+		close(fd1);
+		fd1 = open(".test/files/hola", O_RDONLY);
 		i++;
 	}
 	close(fd1);
