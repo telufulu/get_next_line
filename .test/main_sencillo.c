@@ -8,13 +8,13 @@ void	hola(void)
 
 int	main()
 {
-	int	fd1 = open(".test/files/42", O_RDONLY);
+	int	fd1 = open(".test/files/Hola", O_RDONLY);
 	int	i = 0;
 	char	*res;
 
-	atexit(&hola);
+//	atexit(&hola);
 	res = 0;
-	while (i < 1)
+	while (i < 10)
 	{
 		printf("fd1: %d\n", fd1);
 		res = get_next_line(fd1);

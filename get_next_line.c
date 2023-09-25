@@ -6,36 +6,37 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:45:23 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/25 01:11:00 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:29:06 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*get_buffer(int fd)
+static int	get_buffer(int fd, char **store)
 {
 	char	buffer[BUFFER_SIZE + 1];
-	char	*res;
 	char	*aux;
 	int		rd;
 
-	res = 0;
+	rd = 0;
+	while (rd < BUFFER_SIZE)
+		buffer[rd++] = 0;
 	rd = 1;
-	while (rd > 0)
+	while (rd > 0 && !ft_strchr(buffer, '\n'))
 	{
 		rd = read(fd, buffer, BUFFER_SIZE);
-		buffer[rd] = 0;
 		if (rd < 0)
-			return (free(res), NULL);
+			return (-1);
 		if (!rd)
-			return (res);
-		aux = res;
-		res = ft_strjoin(res, buffer);
+			return (0);
+		buffer[rd] = 0;
+		aux = (*store);
+		(*store) = ft_strjoin((*store), buffer);
 		free(aux);
-		if (!res)
-			return (res);
+		if (!(*store))
+			return (-1);
 	}
-	return (res);
+	return (0);
 }
 
 static char	*get_line(char **store)
@@ -71,20 +72,16 @@ char	*get_next_line(int fd)
 {
 	static char	*store;
 	char		*res;
-	char		*aux;
+	int			aux;
 
-	aux = 0;
 	res = 0;
+	aux = 0;
 	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (free(store), NULL);
 	if (!store || !ft_strchr(store, '\n'))
-	{
-		aux = store;
-		store = get_buffer(fd);
-		free(aux);
-	}
-	if (!store)
-		return (NULL);
+		aux = get_buffer(fd, &store);
+	if (!store || !*store || aux < 0)
+		return (free(store), NULL);
 	res = get_line(&store);
 	if (!res)
 		return (free(store), NULL);

@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:20:18 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/23 14:36:18 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/25 01:22:09 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define MAX_FD 256
+# define MAX_FD 1024
 
 # include <unistd.h>
 # include <stdlib.h>
