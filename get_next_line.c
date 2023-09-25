@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:45:23 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/25 10:29:06 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:55:18 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	get_buffer(int fd, char **store)
 		if (!rd)
 			return (0);
 		buffer[rd] = 0;
+		if (*buffer)
 		aux = (*store);
 		(*store) = ft_strjoin((*store), buffer);
 		free(aux);
@@ -49,6 +50,8 @@ static char	*get_line(char **store)
 	len = 0;
 	i = 0;
 	aux = 0;
+	if (!(*store)[len])
+		return (NULL);
 	while ((*store)[len] && (*store)[len] != '\n')
 		len++;
 	if ((*store)[len] == '\n')
@@ -76,14 +79,20 @@ char	*get_next_line(int fd)
 
 	res = 0;
 	aux = 0;
-	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (free(store), NULL);
 	if (!store || !ft_strchr(store, '\n'))
 		aux = get_buffer(fd, &store);
-	if (!store || !*store || aux < 0)
+	if (!store || aux < 0)
 		return (free(store), NULL);
-	res = get_line(&store);
+	if (store && *store)
+		res = get_line(&store);
 	if (!res)
 		return (free(store), NULL);
+	if (store && !*store)
+	{
+		free(store);
+		store = 0;
+	}
 	return (res);
 }

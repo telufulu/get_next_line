@@ -8,7 +8,7 @@ void	hola(void)
 
 int	main()
 {
-	int	fd1 = open(".test/files/Hola", O_RDONLY);
+	int	fd1 = open(".test/files/hola", O_RDONLY);
 	int	i = 0;
 	char	*res;
 
