@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 18:20:18 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/25 17:09:49 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:25:07 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-
-// borrar
-# include <stdio.h>
 
 // get_next_line
 char	*get_next_line(int fd);

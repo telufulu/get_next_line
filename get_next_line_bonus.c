@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:45:23 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/25 17:17:43 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:24:26 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ static char	*get_line(char **store)
 	return (free(aux), res);
 }
 
+void	*del(char **s)
+{
+	free((*s));
+	(*s) = 0;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*store[MAX_FD];
@@ -77,19 +84,16 @@ char	*get_next_line(int fd)
 	res = 0;
 	aux = 0;
 	if (fd < 0 || BUFFER_SIZE < 0)
-		return (NULL);
+		return (del(&store[fd]));
 	if (!store[fd] || (*store[fd] && !ft_strchr(store[fd], '\n')))
 		aux = get_buffer(fd, &store[fd]);
 	if (aux < 0 || !store[fd])
-		return (free(store[fd]), NULL);
+		return (del(&store[fd]));
 	if (store[fd] && *store[fd])
 		res = get_line(&store[fd]);
 	if (!res)
-		return (free(store[fd]), NULL);
+		return (del(&store[fd]));
 	if (store[fd] && !*store[fd])
-	{
-		free(store[fd]);
-		store[fd] = 0;
-	}
+		del(&store[fd]);
 	return (res);
 }
