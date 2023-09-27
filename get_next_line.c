@@ -6,7 +6,7 @@
 /*   By: telufulu <telufulu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:45:23 by telufulu          #+#    #+#             */
-/*   Updated: 2023/09/26 17:22:13 by telufulu         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:00:20 by telufulu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	get_buffer(int fd, char **store)
 		if (!rd)
 			return (0);
 		buffer[rd] = 0;
-		if (*buffer)
 		aux = (*store);
 		(*store) = ft_strjoin((*store), buffer);
 		free(aux);
@@ -84,7 +83,7 @@ char	*get_next_line(int fd)
 	res = 0;
 	aux = 0;
 	if (fd < 0 || BUFFER_SIZE < 0)
-		return (del(&store));
+		return (NULL);
 	if (!store || (*store && !ft_strchr(store, '\n')))
 		aux = get_buffer(fd, &store);
 	if (aux < 0 || !store)
